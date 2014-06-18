@@ -1,0 +1,10 @@
+PODS:
+  - PubNub (3.6.3)
+
+DEPENDENCIES:
+  - PubNub (= 3.6.3)
+
+SPEC CHECKSUMS:
+  PubNub: d4b7af2f28a5760184a53eff999310267ff8c9ce
+
+COCOAPODS: 0.33.1
