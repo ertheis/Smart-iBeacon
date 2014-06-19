@@ -285,11 +285,11 @@
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <connections>
-                        <outlet property="beaconStatus" destination="A1A-b9-OVg" id="W6U-Jr-Yuu"/>
+                        <outlet property="beaconStatus" destination="MGd-mS-IW0" id="UeH-TB-oRv"/>
                         <outlet property="identity" destination="Had-vJ-m0c" id="Djy-41-H10"/>
                         <outlet property="major" destination="H01-nx-lym" id="eZh-pi-CT6"/>
                         <outlet property="minor" destination="RAg-GA-Wgb" id="nNY-mZ-SRU"/>
-                        <outlet property="status" destination="MGd-mS-IW0" id="fea-iZ-x17"/>
+                        <outlet property="serverStatus" destination="A1A-b9-OVg" id="RaP-sG-VWp"/>
                         <outlet property="uuid" destination="6tb-Zg-CeN" id="4dD-da-nkD"/>
                     </connections>
                 </viewController>

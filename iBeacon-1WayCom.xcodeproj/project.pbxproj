@@ -17,7 +17,7 @@
 		3D7D7877194F791200E17477 /* beViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7D7876194F791200E17477 /* beViewController.swift */; };
 		3D7D7879194F792000E17477 /* detectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7D7878194F792000E17477 /* detectViewController.swift */; };
 		3D7D787B194F85AE00E17477 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7D787A194F85AE00E17477 /* Customer.swift */; };
-		3D7D787D194F85BD00E17477 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7D787C194F85BD00E17477 /* Server.swift */; };
+		3D7D787D194F85BD00E17477 /* Brain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7D787C194F85BD00E17477 /* Brain.swift */; };
 		3D7D7880194F874D00E17477 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D7D787F194F874D00E17477 /* Foundation.framework */; };
 		3D7D7882194F875900E17477 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D7D7881194F875900E17477 /* UIKit.framework */; };
 /* End PBXBuildFile section */
@@ -48,7 +48,7 @@
 		3D7D7876194F791200E17477 /* beViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = beViewController.swift; sourceTree = "<group>"; };
 		3D7D7878194F792000E17477 /* detectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = detectViewController.swift; sourceTree = "<group>"; };
 		3D7D787A194F85AE00E17477 /* Customer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
-		3D7D787C194F85BD00E17477 /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
+		3D7D787C194F85BD00E17477 /* Brain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brain.swift; sourceTree = "<group>"; };
 		3D7D787F194F874D00E17477 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3D7D7881194F875900E17477 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		60BE8205308746398D7D0E55 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -105,7 +105,7 @@
 				3D7D7878194F792000E17477 /* detectViewController.swift */,
 				3D1F8990194F9ACE00118AA1 /* bridgeHeader.h */,
 				3D7D785D194F762400E17477 /* Main.storyboard */,
-				3D7D787C194F85BD00E17477 /* Server.swift */,
+				3D7D787C194F85BD00E17477 /* Brain.swift */,
 				3D7D787A194F85AE00E17477 /* Customer.swift */,
 				3D7D7860194F762400E17477 /* Images.xcassets */,
 				3D7D7857194F762400E17477 /* Supporting Files */,
@@ -288,7 +288,7 @@
 				3D7D787B194F85AE00E17477 /* Customer.swift in Sources */,
 				3D7D7879194F792000E17477 /* detectViewController.swift in Sources */,
 				3D7D7877194F791200E17477 /* beViewController.swift in Sources */,
-				3D7D787D194F85BD00E17477 /* Server.swift in Sources */,
+				3D7D787D194F85BD00E17477 /* Brain.swift in Sources */,
 				3D7D785A194F762400E17477 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

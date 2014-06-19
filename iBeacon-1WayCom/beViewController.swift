@@ -16,8 +16,8 @@ class beViewController: UIViewController, CBPeripheralManagerDelegate {
     @IBOutlet var major : UILabel
     @IBOutlet var minor : UILabel
     @IBOutlet var identity : UILabel
-    @IBOutlet var status : UILabel
     @IBOutlet var beaconStatus : UILabel
+    @IBOutlet var serverStatus : UILabel
     
     let uuidObj = NSUUID(UUIDString: "0CF052C2-97CA-407C-84F8-B62AAC4E9020")
     
@@ -25,18 +25,14 @@ class beViewController: UIViewController, CBPeripheralManagerDelegate {
     var data = NSDictionary()
     var manager = CBPeripheralManager()
     
-    var srvr = Server()
+    var srvr = Brain()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.region = CLBeaconRegion(proximityUUID: uuidObj, major: 6, minor: 9, identifier: "com.pubnub.test")
+        self.region = CLBeaconRegion(proximityUUID: uuidObj, major: 9, minor: 6, identifier: "com.pubnub.test")
         updateInterface()
         
-        srvr.setStatusLabel(self.beaconStatus)
-        PubNub.setDelegate(srvr)
-        PubNub.setConfiguration(srvr.config)
-        PubNub.connect()
-        srvr.setChannel(self.region.major, minor: self.region.minor)
+        srvr.setup(self.serverStatus)
     }
     
     func updateInterface(){
@@ -51,21 +47,17 @@ class beViewController: UIViewController, CBPeripheralManagerDelegate {
         self.manager = CBPeripheralManager(delegate: self, queue: nil, options: nil)
     }
     
-    func srvrSendDeal() {
-        srvr.sendDeals()
-    }
-    
     func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager!) {
         if(peripheral.state == CBPeripheralManagerState.PoweredOn) {
             println("powered on")
             println(data)
             self.manager.startAdvertising(data)
-            self.status.text = "Transmitting!"
-            var timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "srvrSendDeal", userInfo: nil, repeats: true)
+            self.beaconStatus.text = "Transmitting!"
+            //var timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "srvrSendDeal", userInfo: nil, repeats: true)
         } else if(peripheral.state == CBPeripheralManagerState.PoweredOff) {
             println("powered off")
             self.manager.stopAdvertising()
-            self.status.text = "Power Off"
+            self.beaconStatus.text = "Power Off"
         }
     }
     

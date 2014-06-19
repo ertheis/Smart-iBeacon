@@ -96,7 +96,7 @@ class detectViewController: UIViewController, CLLocationManagerDelegate {
         } else if (beacon.proximity == CLProximity.Immediate) {
             self.distance.text = "Immediate"
             if(cstmr.subscribeAttempt){
-                cstmr.getAdOfTheDay(6, minor: 9)
+                cstmr.getAdOfTheDay(beacon.major, minor: beacon.minor)
             }
         } else if (beacon.proximity == CLProximity.Near) {
             self.distance.text = "Near"

@@ -11,17 +11,14 @@ import UIKit
 class Customer: NSObject, PNDelegate {
     
     let config = PNConfiguration(forOrigin: "pubsub.pubnub.com", publishKey: "demo", subscribeKey: "demo", secretKey: nil)
+    
     var connected = false
-    var channel: PNChannel
-    var deal: UILabel
-    var pubStatus: UILabel
+    var deal = UILabel()
+    var pubStatus = UILabel()
     var needDeal = true
     var subscribeAttempt = true
     
     init(){
-        channel = PNChannel()
-        deal = UILabel()
-        pubStatus = UILabel()
         super.init()
     }
     
@@ -36,12 +33,12 @@ class Customer: NSObject, PNDelegate {
         self.pubStatus = pubStatus
     }
     
-    func getAdOfTheDay(major: Int, minor: Int) {
+    func getAdOfTheDay(major: NSNumber, minor: NSNumber) {
+        println("getAd run - Connected: \(connected) subscribeAttempt: \(subscribeAttempt)")
         if(connected && subscribeAttempt) {
             subscribeAttempt = false
-            var channel: PNChannel = PNChannel.channelWithName("\(major)\(minor)ChangeThisSuffix", shouldObservePresence: true) as PNChannel
+            var channel: PNChannel = PNChannel.channelWithName("minor:\(minor)major:\(major)ChangeThisSuffix", shouldObservePresence: true) as PNChannel
             PubNub.subscribeOnChannel(channel)
-            println("Subscription attempt")
         } else if (subscribeAttempt) {
             deal.text =  "connection error :("
         }
@@ -63,6 +60,7 @@ class Customer: NSObject, PNDelegate {
     }
     
     func pubnubClient(client: PubNub!, didUnsubscribeOnChannels channels: NSArray!) {
+        println("DELEGATE: Unsubscribed from channel(s): \(channels)")
         self.pubStatus.text = "Unsubscribed"
     }
     
