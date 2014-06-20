@@ -1,6 +1,6 @@
 #Smart iBeacons in the Swift Programming Language
 
-You can find an xCode project with the code (as one app with both observer and emitter functionality) for this tutorial [on my github][1].
+You can find an xCode project with the code (as one app with both observer and emitter functionality) in this tutorial [on my github][1].
 
 Unlike most i-Products, iBeacon is not a physical device. Rather, it is a bluetooth protocol. It allows a device to transmit a small amount of information to another device when they are in close proximity (20m max) of each other. A good way to look at an iBeacon is as a lighthouse. An observer first needs to know in what direction to look. Once an observer can see the light, he/she can determine color of the light and the frequency with which it rotates. He can also roughly determine how near/far they are from the source. However, with both iBeacons and lighthouses, the source and observer cannot communicate any further without an external technology. In the case of the lighthouse, a great candidate is a radio. In the case of iBeacons, a great candidate is PubNub.
 
