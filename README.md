@@ -321,6 +321,10 @@ class Customer: NSObject, PNDelegate {
     var pubStatus = UILabel()
     var needDeal = true
     var subscribeAttempt = true
+    
+    init(){
+        super.init()
+    }
 }
 ```
 Our customer class maintains control over two labels. One to display the ad it receives from the iBeacon and the other to send status updates. It also requires some state variables to prevent itself from continuously subscribing to the channel and processing messages while within the threshold range of the iBeacon.
