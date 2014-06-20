@@ -25,14 +25,14 @@ class beViewController: UIViewController, CBPeripheralManagerDelegate {
     var data = NSDictionary()
     var manager = CBPeripheralManager()
     
-    var srvr = Brain()
+    var brain = Brain()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.region = CLBeaconRegion(proximityUUID: uuidObj, major: 9, minor: 6, identifier: "com.pubnub.test")
         updateInterface()
         
-        srvr.setup(self.serverStatus)
+        brain.setup(self.serverStatus, minor: self.region.minor, major: self.region.major)
     }
     
     func updateInterface(){
@@ -53,7 +53,6 @@ class beViewController: UIViewController, CBPeripheralManagerDelegate {
             println(data)
             self.manager.startAdvertising(data)
             self.beaconStatus.text = "Transmitting!"
-            //var timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "srvrSendDeal", userInfo: nil, repeats: true)
         } else if(peripheral.state == CBPeripheralManagerState.PoweredOff) {
             println("powered off")
             self.manager.stopAdvertising()
@@ -63,7 +62,6 @@ class beViewController: UIViewController, CBPeripheralManagerDelegate {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
 }

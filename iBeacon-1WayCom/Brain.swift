@@ -10,7 +10,7 @@ import UIKit
 
 class Brain: NSObject, PNDelegate {
     let config = PNConfiguration(forOrigin: "pubsub.pubnub.com", publishKey: "demo", subscribeKey: "demo", secretKey: nil)
-    let channel = PNChannel.channelWithName("minor:6major:9ChangeThisSuffix", shouldObservePresence: true) as PNChannel
+    var channel = PNChannel()
     
     var serverStatus = UILabel()
     
@@ -18,10 +18,11 @@ class Brain: NSObject, PNDelegate {
         super.init()
     }
     
-    func setup(serverLabel: UILabel) {
+    func setup(serverLabel: UILabel, minor: NSNumber, major: NSNumber) {
         PubNub.setDelegate(self)
         PubNub.setConfiguration(self.config)
         PubNub.connect()
+        channel = PNChannel.channelWithName("minor:\(minor)major:\(major)CompanyName", shouldObservePresence: true) as PNChannel
         PubNub.subscribeOnChannel(self.channel)
         self.serverStatus = serverLabel
     }
@@ -48,14 +49,6 @@ class Brain: NSObject, PNDelegate {
     }
     
     func pubnubClient(client: PubNub!, didReceivePresenceEvent event: PNPresenceEvent!) {
-        /*
-        println("Join: \(PNPresenceEventType.Join.value)")
-        println("Leave: \(PNPresenceEventType.Leave.value)")
-        println("Changed: \(PNPresenceEventType.Changed.value)")
-        println("Timeout: \(PNPresenceEventType.Timeout.value)")
-        println("State Change: \(PNPresenceEventType.StateChanged.value)")
-        println("Event Type: \(event.type.value)")
-        */
         if(event.type.value == PNPresenceEventType.Join.value) {
             PubNub.sendMessage("Free Latte!", toChannel: event.channel)
             println("Message Sent")

@@ -22,31 +22,23 @@ class Customer: NSObject, PNDelegate {
         super.init()
     }
     
-    func pubnubClient(client: PubNub!, didConnectToOrigin origin: String!) {
-        println("DELEGATE: connected to origin \(origin)")
-        connected = true
-        self.pubStatus.text = "connected"
-    }
     
-    func setStatusLabel(deal: UILabel, pubStatus: UILabel) {
+    func setup(deal: UILabel, pubStatus: UILabel) {
         self.deal = deal
         self.pubStatus = pubStatus
+        PubNub.setDelegate(self)
+        PubNub.setConfiguration(self.config)
+        PubNub.connect()
     }
     
     func getAdOfTheDay(major: NSNumber, minor: NSNumber) {
-        println("getAd run - Connected: \(connected) subscribeAttempt: \(subscribeAttempt)")
         if(connected && subscribeAttempt) {
             subscribeAttempt = false
-            var channel: PNChannel = PNChannel.channelWithName("minor:\(minor)major:\(major)ChangeThisSuffix", shouldObservePresence: true) as PNChannel
+            var channel: PNChannel = PNChannel.channelWithName("minor:\(minor)major:\(major)CompanyName", shouldObservePresence: true) as PNChannel
             PubNub.subscribeOnChannel(channel)
         } else if (subscribeAttempt) {
             deal.text =  "connection error :("
         }
-    }
-    
-    func pubnubClient(client: PubNub!, didSubscribeOnChannels channels: NSArray!) {
-        println("DELEGATE: Subscribed to channel(s): \(channels)")
-        self.pubStatus.text = "Subscribed"
     }
     
     func pubnubClient(client: PubNub!, didReceiveMessage message: PNMessage!){
@@ -57,6 +49,17 @@ class Customer: NSObject, PNDelegate {
             self.deal.text = "\(message.message)"
         }
         PubNub.unsubscribeFromChannel(message.channel)
+    }
+    
+    func pubnubClient(client: PubNub!, didConnectToOrigin origin: String!) {
+        println("connected to origin \(origin)")
+        connected = true
+        self.pubStatus.text = "connected"
+    }
+    
+    func pubnubClient(client: PubNub!, didSubscribeOnChannels channels: NSArray!) {
+        println("DELEGATE: Subscribed to channel(s): \(channels)")
+        self.pubStatus.text = "Subscribed"
     }
     
     func pubnubClient(client: PubNub!, didUnsubscribeOnChannels channels: NSArray!) {

@@ -32,14 +32,8 @@ class detectViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         manager.delegate = self
         region = CLBeaconRegion(proximityUUID: uuidObj, identifier: "com.pubnub.test")
-        println(manager)
-        println(region)
-        cstmr.setStatusLabel(deal, pubStatus: pubStatus)
         
-        PubNub.setDelegate(cstmr)
-        PubNub.setConfiguration(cstmr.config)
-        PubNub.connect()
-        println("connection attempt to pubnub")
+        cstmr.setup(deal, pubStatus: pubStatus)
     }
 
     @IBAction func startDetection(sender : UIButton) {
@@ -67,7 +61,17 @@ class detectViewController: UIViewController, CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager!, didExitRegion region: CLRegion!) {
         manager.stopRangingBeaconsInRegion(region as CLBeaconRegion)
-        self.found.text = "No :("
+        reset()
+    }
+    
+    func reset(){
+        self.found.text = "No"
+        self.uuid.text = "N/A"
+        self.major.text = "N/A"
+        self.minor.text = "N/A"
+        self.accuracy.text = "N/A"
+        self.rssi.text = "N/A"
+        
         cstmr.needDeal = true
         cstmr.subscribeAttempt = true
         self.deal.text = "Come on down to PubNub Cafe for a hot deal!"
@@ -80,30 +84,13 @@ class detectViewController: UIViewController, CLLocationManagerDelegate {
         
         if (beacon.proximity == CLProximity.Unknown) {
             self.distance.text = "Unknown Proximity"
-            
-            self.found.text = "No"
-            self.uuid.text = "N/A"
-            self.major.text = "N/A"
-            self.minor.text = "N/A"
-            self.accuracy.text = "N/A"
-            self.rssi.text = "N/A"
-            
-            cstmr.needDeal = true
-            cstmr.subscribeAttempt = true
-            self.deal.text = "Come on down to PubNub Cafe for a hot deal!"
-            
+            reset()
             return
         } else if (beacon.proximity == CLProximity.Immediate) {
             self.distance.text = "Immediate"
-            if(cstmr.subscribeAttempt){
-                cstmr.getAdOfTheDay(beacon.major, minor: beacon.minor)
-            }
+            cstmr.getAdOfTheDay(beacon.major, minor: beacon.minor)
         } else if (beacon.proximity == CLProximity.Near) {
             self.distance.text = "Near"
-            
-            cstmr.needDeal = true
-            cstmr.subscribeAttempt = true
-            self.deal.text = "Come on down to PubNub Cafe for a hot deal!"
         } else if (beacon.proximity == CLProximity.Far) {
             self.distance.text = "Far"
         }
