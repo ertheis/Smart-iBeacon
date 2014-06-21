@@ -9,7 +9,7 @@ By default, the only information an iBeacon can send to an observer is a set of 
 In this tutorial, I will demonstrate how to use an iDevice as both a smart iBeacon emitter and an iBeacon observer using the programming language Swift. For this example, we will pretend that we are shopkeepers trying to send daily deals to customers running the store's app. The "brain" is an ad server which publishes a deal whenever it detects a new device on the iBeacon's designated channel. When an observer device gets close enough to an iBeacon emitter, it uses the beacon's information to subscribe to the iBeacon's channel, receive the brain's ad, then leave the channel.
 
 //for the titles, say what's going to happen
-###A Simple Ad Server
+###The Brains of the iBeacon: A Simple Ad Server
 In this example, the iOS device emitting the iBeacon will also host the ad server "brain" for that iBeacon. However, this code could easily be implemented on an independent machine. This independence is useful when one device needs to handle events for many iBeacons (and in turn many possible channels) or when the emitter device's only capability is emitting an iBeacon signal.
 
 ```swift
@@ -113,7 +113,7 @@ class Server: NSObject, PNDelegate {
 
 And there you have it. A simple working iBeacon brain.
 
-###The iBeacon Emitter
+###Broadcasting an iBeacon
 Moving onto the beacon itself, we simply define the major and minor numbers, set a unique string that our observers will use to find the beacon, make sure that bluetooth is on, and transmit the beacon signal.
 
 In this example, our emitter's UIView uses 6 labels and a button. The labels are used to display the iBeacon's UUID, Major and Minor ID numbers, it's Identity, our beacon's status, and PubNub's status. The button is used to begin the iBeacon's transmission. We also create a Brain object which receives control when an observer is close enough to a beacon. To create the iBeacon, we will utilize the CoreLocation and CoreBluetooth libraries.
@@ -189,8 +189,8 @@ This delegate method is called when the device's bluetooth changes state (includ
 
 Now we've completed the code for the emitter device. Before you test it, remember to make sure your device has an internet connection and that it's bluetooth hardwear is on. Another note is that iBeacons only work on devices equipped with bluetooth 4.0 or higher. In the app, merely wait for the server status to display "ready to transmit" then press the transmit button. Voila, you have a working smart iBeacon emitter.
 
-###Observing the Signal
-Now that we've made an iBeacon emitter, we need to create our observer. The observer follows a model similar to the emitter. The viewController handles the iBeacon's detection while another class (which we will call the customer) receives control once a beacon's information is harvested. To create the observer, we utilize the CoreLocation and CoreBluetooth libraries.
+###Observing the Beacon From Another Device
+Now that we've made an iBeacon emitter, we'll move on to the code running on the observer devices. It follows that the code in this and the next section runs independently from the the code in the previous two sections. That said, the observer follows a model similar to the emitter. The viewController handles the iBeacon's detection while another class (which we will call the customer) receives control once a beacon's information is harvested. To create the observer, we utilize the CoreLocation and CoreBluetooth libraries.
 
 ```swift
 class ViewController: UIViewController, CLLocationManagerDelegate {
@@ -308,7 +308,7 @@ func locationManager(manager: CLLocationManager!, didRangeBeacons beacons: NSArr
 ```
 The didRangeBeacons delegate method is called when we have ranged a set of beacons who's regions we are currently occupying. It gives us an array of beacons, but for now we are only looking at one. The first line of the method exists because of our testing call to "startRangingBeacons" so we don't segfault when referencing an empty object. This might occur when we start the app out of range of any beacons. The rest of this method updates the labels to reflect current information about the beacon we are receiving data from. Officially, it can take up to 20 seconds to accurately display beacon information, but in practice it takes about 3. Right now, we hand control over to the customer object when our distance is immediate. It is easier to test the customer object when we reset our state at the "near" distance as opposed to when we leave the beacon's region.
 
-###The Customer
+###Receiving the Ads
 Our customer class handles the observer's communication with the emitter beacon's brain. Once it receives control from the view controller, it uses the information obtained from the iBeacon to subscribe to the channel which the brain is monitoring. Once it receives a message from the brain, the customer displays the contents of the message, in this case an ad/deal, then unsubscribes.
 
 ```swift
