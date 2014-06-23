@@ -390,6 +390,6 @@ func pubnubClient(client: PubNub!, subscriptionDidFailWithError error: PNError!)
 ```
 These functions merely update the status label and print logging info to the console. The didConnectToOrigin delegate method switches the connected boolean to true, but the other methods could theoretically be removed without affecting the class' functionality.
 
-Between these four classes, you should have a working iBeacon capable of complex communication with its observers. From here, you can modify the communication model to anything from multi-device chat to location based event logging. Enjoy!
+Between these four classes, you should have a working iBeacon capable of complex communication with its observers. From here, you can modify the communication model to anything from multi-device chat to location based authentication (i.e. unlock a door when in proximity to an iBeacon). Enjoy!
 
 [1]: http://www.github.com/ertheis/Smart-iBeacon
