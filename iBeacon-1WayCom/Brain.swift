@@ -49,10 +49,10 @@ class Brain: NSObject, PNDelegate {
     }
     
     func pubnubClient(client: PubNub!, didReceivePresenceEvent event: PNPresenceEvent!) {
-        if(event.type.value == PNPresenceEventType.Join.value) {
+        if(event.type.toRaw() == PNPresenceEventType.Join.toRaw()) {
             PubNub.sendMessage("Free Latte!", toChannel: event.channel)
             println("Message Sent")
-        } else if (event.type.value == PNPresenceEventType.Leave.value) {
+        } else if (event.type.toRaw() == PNPresenceEventType.Leave.toRaw()) {
             println("they left")
         }
     }

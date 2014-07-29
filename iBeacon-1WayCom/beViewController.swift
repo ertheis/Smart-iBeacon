@@ -12,12 +12,12 @@ import CoreBluetooth
 
 class beViewController: UIViewController, CBPeripheralManagerDelegate {
 
-    @IBOutlet var uuid : UILabel
-    @IBOutlet var major : UILabel
-    @IBOutlet var minor : UILabel
-    @IBOutlet var identity : UILabel
-    @IBOutlet var beaconStatus : UILabel
-    @IBOutlet var serverStatus : UILabel
+    @IBOutlet var uuid : UILabel!
+    @IBOutlet var major : UILabel!
+    @IBOutlet var minor : UILabel!
+    @IBOutlet var identity : UILabel!
+    @IBOutlet var beaconStatus : UILabel!
+    @IBOutlet var serverStatus : UILabel!
     
     let uuidObj = NSUUID(UUIDString: "0CF052C2-97CA-407C-84F8-B62AAC4E9020")
     

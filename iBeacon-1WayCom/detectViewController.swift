@@ -12,15 +12,15 @@ import CoreBluetooth
 
 class detectViewController: UIViewController, CLLocationManagerDelegate {
     
-    @IBOutlet var found : UILabel
-    @IBOutlet var uuid : UILabel
-    @IBOutlet var major : UILabel
-    @IBOutlet var minor : UILabel
-    @IBOutlet var accuracy : UILabel
-    @IBOutlet var distance : UILabel
-    @IBOutlet var rssi : UILabel
-    @IBOutlet var deal : UILabel
-    @IBOutlet var pubStatus : UILabel
+    @IBOutlet var found : UILabel!
+    @IBOutlet var uuid : UILabel!
+    @IBOutlet var major : UILabel!
+    @IBOutlet var minor : UILabel!
+    @IBOutlet var accuracy : UILabel!
+    @IBOutlet var distance : UILabel!
+    @IBOutlet var rssi : UILabel!
+    @IBOutlet var deal : UILabel!
+    @IBOutlet var pubStatus : UILabel!
     
     let uuidObj = NSUUID(UUIDString: "0CF052C2-97CA-407C-84F8-B62AAC4E9020")
     
@@ -37,7 +37,8 @@ class detectViewController: UIViewController, CLLocationManagerDelegate {
     }
 
     @IBAction func startDetection(sender : UIButton) {
-        if(UIDevice.currentDevice().systemVersion.substringToIndex(1).toInt() >= 8){
+        var os = UIDevice.currentDevice().systemVersion
+        if(os.substringToIndex(os.startIndex.successor()).toInt() >= 8){
             self.manager.requestAlwaysAuthorization()
         }
         self.manager.startMonitoringForRegion(self.region)
